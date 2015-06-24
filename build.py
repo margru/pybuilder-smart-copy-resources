@@ -7,12 +7,13 @@ from pybuilder.core import use_plugin, init, Author
 # use_plugin("python.flake8")
 # use_plugin("python.coverage")
 use_plugin("python.distutils")
+# use_plugin("copy_resources")
 
 
 name = "pybuilder-smart-copy-resources"
 summary = 'PyBuilder plugin for copying additional resources'
 authors = [Author('Martin Gruber', 'martin.gruber@email.cz')]
-version = "0.1.0"
+version = "0.1.1"
 default_task = "publish"
 license = 'MIT'
 url = 'https://github.com/margru/pybuilder-smart-copy-resources'
@@ -30,7 +31,11 @@ classifiers = [
     # Specify the Python versions you support here. In particular, ensure
     # that you indicate whether you support Python 2, Python 3 or both.
     'Programming Language :: Python :: 2.7',
-],
+]
+
+description = """
+Please, see https://github.com/margru/pybuilder-smart-copy-resources for more information.
+"""
 
 @init
 def set_properties(project):
