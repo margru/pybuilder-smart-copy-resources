@@ -15,14 +15,15 @@ Then you can use the task `smart_copy_resources`, e.g. `default_task = ["publish
 ```
 @init
 def set_properties(project):
-    project.set_property("smart_copy_resources_basedir", "./")
+    project.set_property("smart_copy_resources_basedir", "./dist")
     project.set_property("smart_copy_resources", {
-        "path/to/file.ext": ./dist,
-        "all/files/here/*": ./dist/other/files,
+        "path/to/file.ext": "./",
+        "all/files/here/*": "./other/files",
+        "${name}-additional-files/*": "./additional-files",
     })
 ```
 
-Files defined as keys in the `smart_copy_resources` dictionary will be copied into the locations specified by corresponding values. The files can be specified as `glob` patterns.
+`smart_copy_resources_basedir` is a base directory where the resource files are searched for. Files defined as keys in the `smart_copy_resources` dictionary will be copied into the locations specified by corresponding values. The files can be specified as `glob` patterns. Sources and destinations may contain project properties placeholders, e.g. `${name}` or `${version}`.
 
 You can also use the extended notation to alter the filenames:
 

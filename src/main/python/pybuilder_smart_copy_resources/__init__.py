@@ -31,6 +31,7 @@ def smart_copy_resources(project, logger):
 
     for glob_to_copy, copy_settings in resources_to_copy.iteritems():
         copy_as = None
+        glob_to_copy = project.expand(glob_to_copy)
 
         # Handle dict-like copy settings
         if isinstance(copy_settings, dict):
