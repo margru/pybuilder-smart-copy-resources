@@ -29,7 +29,7 @@ def smart_copy_resources(project, logger):
     if not isinstance(resources_to_copy, dict):
         logger.warn(u"Invalid smart_copy_resources property, it shall be a dict-like object")
 
-    for glob_to_copy, copy_settings in resources_to_copy.iteritems():
+    for glob_to_copy, copy_settings in resources_to_copy.items():
         copy_as = None
         glob_to_copy = project.expand(glob_to_copy)
 
