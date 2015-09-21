@@ -7,6 +7,12 @@ from pybuilder.core import init, task
 
 __author__ = u"Martin Grůber"
 
+try:
+    string_types = basestring
+except NameError:
+    string_types = str
+
+
 @init
 def init_smart_copy_plugin(project, logger):
     project.set_property_if_unset("smart_copy_resources", {})
@@ -29,7 +35,7 @@ def smart_copy_resources(project, logger):
     if not isinstance(resources_to_copy, dict):
         logger.warn(u"Invalid smart_copy_resources property, it shall be a dict-like object")
 
-    for glob_to_copy, copy_settings in resources_to_copy.iteritems():
+    for glob_to_copy, copy_settings in resources_to_copy.items():
         copy_as = None
         glob_to_copy = project.expand(glob_to_copy)
 
@@ -45,7 +51,7 @@ def smart_copy_resources(project, logger):
             destinations = copy_settings
 
         # Make it a list to allow multiple destinations
-        if isinstance(destinations, basestring):
+        if isinstance(destinations, string_types):
             destinations = [destinations]
         elif isinstance(destinations, list) or isinstance(destinations, tuple):
             pass
