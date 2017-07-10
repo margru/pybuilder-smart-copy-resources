@@ -18,9 +18,8 @@ def init_smart_copy_plugin(project, logger):
     project.set_property_if_unset("smart_copy_resources", {})
     project.set_property_if_unset("smart_copy_resources_basedir", project.basedir)
 
-@task("smart_copy_resources", "Copy additional resources to required destinations")
-def smart_copy_resources(project, logger):
-
+@task
+def package(project, logger):
     logger.info(u"Copying additional resource files")
 
     # Get the properties
