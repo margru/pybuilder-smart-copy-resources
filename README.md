@@ -10,7 +10,10 @@ In your `build.py`:
 use_plugin("pypi:pybuilder_smart_copy_resources")
 ```
 
-Then you can use the task `smart_copy_resources`, e.g. `default_task = ["publish", "smart_copy_resources"]`. To configure the additional resource files you want to copy, use the following in your `build.py`:
+Then you can use smart_copy_resources plugin as part of built-in `package` task.
+You do not have to call `package` task directly if use any task which requires it, for example, `publish` task. 
+
+To configure the additional resource files you want to copy, use the following in your `build.py`:
 
 ```
 @init

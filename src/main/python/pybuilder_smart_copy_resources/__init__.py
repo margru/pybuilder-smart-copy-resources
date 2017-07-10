@@ -16,7 +16,8 @@ except NameError:
 @init
 def init_smart_copy_plugin(project, logger):
     project.set_property_if_unset("smart_copy_resources", {})
-    project.set_property_if_unset("smart_copy_resources_basedir", project.basedir)
+    project.set_property_if_unset("smart_copy_resources_basedir", "")
+
 
 @task
 def package(project, logger):
