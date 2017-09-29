@@ -2,8 +2,11 @@
 import os
 import glob
 import shutil
+import string
 
 from pybuilder.core import init, task
+from pybuilder.errors import MissingPropertyException
+from pybuilder.plugins.filter_resources_plugin import ProjectDictWrapper
 
 __author__ = u"Martin Grůber"
 
@@ -37,7 +40,7 @@ def package(project, logger):
 
     for glob_to_copy, copy_settings in resources_to_copy.items():
         copy_as = None
-        glob_to_copy = project.expand(glob_to_copy)
+        glob_to_copy = expand(project, logger, glob_to_copy)
 
         # Handle dict-like copy settings
         if isinstance(copy_settings, dict):
@@ -69,9 +72,23 @@ def package(project, logger):
         for file_to_copy in all_files:
             # to all the destinations
             for destination in destinations:
-                destination = project.expand(destination)
+                destination = expand(project, logger, destination)
                 destination = os.path.abspath(destination)
                 smart_copy_resource(file_to_copy, os.path.basename(file_to_copy) if copy_as is None else copy_as, destination, logger, verbose=project.get_property("verbose"))
+
+
+def expand(project, logger, format_string):
+    project_dict_wrapper = ProjectDictWrapper(project, logger)
+    previous = None
+    result = format_string
+    while previous != result:
+        try:
+            previous = result
+            result = string.Template(result).substitute(project_dict_wrapper)
+        except KeyError as e:
+            raise MissingPropertyException(e)
+    return result
+
 
 def smart_copy_resource(absolute_filename, relative_filename, target_directory, logger, verbose=False):
     absolute_target_file_name = os.path.join(target_directory, relative_filename)
